@@ -1,0 +1,41 @@
+class Solution {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        int j = lowerbound(arr,x);
+        int i = lowerbound(arr,x)-1;
+        List<Integer> list = new ArrayList<>();
+        while(i>=0&&j<arr.length&&k>0){
+            if(Math.abs(arr[i]-x)>Math.abs(arr[j]-x)){
+            j++;
+            k--;
+            }
+            else{
+            i--;
+            k--;
+            }
+        }
+        while(k>0&&i>=0){
+            i--;
+            k--;
+        }
+        while(k>0&&j<arr.length){
+            j++;
+            k--;
+        }
+        for(int a = i+1;a<=j-1&&a<arr.length;a++){
+            list.add(arr[a]);
+        }
+        return list;
+    }
+    public int lowerbound(int []arr,int target){
+        int left = 0,right = arr.length - 1;
+        while(left<=right){
+            int mid = left + (right - left) / 2;
+            if(target>arr[mid]){
+                left = mid + 1;
+            }else{
+                right = mid - 1;
+            }
+        }
+        return left;
+    }
+}
